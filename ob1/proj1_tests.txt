@@ -1,0 +1,7 @@
+echo "Ahoj" | ./proj1
+echo 'Hello, world! Ahoj svete!' | ./proj1 -s 14 -n 5
+echo "Hello" | ./proj1 -x
+printf "\xff\x00" | ./proj1 -x
+printf "Ahoj\0Slovo\nXY\n" | ./proj1 -S 3
+echo "48656c6c0a" | ./proj1 -r
+echo "00ff00ff" | ./proj1 -r | ./proj1 -x

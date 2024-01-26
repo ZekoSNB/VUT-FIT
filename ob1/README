@@ -1,0 +1,19 @@
+Skript pro testovani projektu do IZP
+--------------------------------------
+
+0] skript provozujte na serveru merlin
+
+1] rozbalit archiv do stejneho adresare jako proj1.c
+
+1a] adresar musi pro spravnou funkcnost skriptu obsahovat:
+pattern.txt - ocekavane vysledky testu
+ob1.sh - skript
+proj1.c - zdrojovy kod prvniho projektu
+
+2] nastaveni prav spousteni pro skript: chmod +x ob1.sh
+
+3] spusteni skriptu: ./ob1.sh
+
+4] spravne chovani: nic nevypise, jinak vypise rozdily
+
+4a] vystupy programu jsou v souboru output.txt
