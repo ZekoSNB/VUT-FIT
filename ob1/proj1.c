@@ -1,23 +1,27 @@
 #include<stdio.h>
 
+int invalid_argument(){
+
+    printf("Zadaj validny argument \n");
+    printf("Pouzi -x pre prevod do Hexadecimalnej  \n");
+    printf("Pouzi -S a -N [pocet] pre vypis postupnosti v binarnom vstupe \n");
+
+    return 1;
+}
+
+void make_something_with_character(char character){
+    printf("%X ", (int)character);
+}
+
 int main(int argc, char *argv[]){
+    if (argc == 1) {invalid_argument();}
 
-    char buffer[200];
     char character;
-    int index = 0;
 
-    while((character = getchar()) != '\n' && index < (int)sizeof(buffer)){
-        buffer[index++] = character;
+    while((character = getchar()) != '\n'){
+        make_something_with_character(character);
     }
 
-
-    if (argc == 1) {
-        printf("you didn't enter any arguments \n");
-        return 0;
-    }
-
-    
-    else {
         switch (argv[1][1]) {
             case 'a':
                 printf("you entered -a \n");
@@ -27,11 +31,8 @@ int main(int argc, char *argv[]){
                 break;
 
             default:
-                printf("Zadaj validny argument \n");
-                printf("Pouzi -x pre prevod do Hexadecimalnej  \n");
-                printf("Pouzi -S a -N [pocet] pre vypis postupnosti v binarnom vstupe \n");
+                invalid_argument();
                 break;
         }
-    }
     return 0;
 }
