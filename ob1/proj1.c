@@ -1,12 +1,23 @@
 #include<stdio.h>
 
+int string_to_int(char *str) {
+    int result = 0;
+
+    for (int i = 0; str[i] != '\0'; i++){
+        result = result * 10 + str[i] - '0';
+    }
+
+    return result;
+}
+
+
 int invalid_argument(){
 
     printf("Zadaj validny argument \n");
     printf("Pouzi -x pre prevod do Hexadecimalnej  \n");
     printf("Pouzi -S a -N [pocet] pre vypis postupnosti v binarnom vstupe \n");
 
-    return 1;
+    return 0;
 }
 
 void make_something_with_character(char character){
@@ -15,7 +26,7 @@ void make_something_with_character(char character){
 
 int main(int argc, char *argv[]){
     if (argc == 1) {invalid_argument();}
-
+    printf("argument number: %i \n", string_to_int(argv[2]));
     char character;
 
     while((character = getchar()) != '\n'){
