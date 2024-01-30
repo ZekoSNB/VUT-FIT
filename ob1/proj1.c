@@ -18,7 +18,8 @@ int invalid_argument(){
     printf("Pouzi -S a -N [pocet] pre vypis postupnosti v binarnom vstupe \n");
 
     return 0;
-}
+}k
+
 
 void make_something_with_character(char character){
     printf("%X ", (int)character);
@@ -30,7 +31,7 @@ int main(int argc, char *argv[]){
     char character;
 
     while((character = getchar()) != '\n'){
-        make_something_with_character(character);
+            byte_to_char(character);
     }
 
         switch (argv[1][1]) {
