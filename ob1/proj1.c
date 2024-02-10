@@ -1,31 +1,34 @@
 #include <stdio.h>
+#include <stdbool.h>
+
+void string_to_bytes_no_arg();
+
+void bytes_to_string();
 
 void string_to_bytes();
 
-void handle_no_arguments();
+int readLine(char buffer[], int max_length, bool ignore_whitespace);
 
-int readLine(char buffer[], int max_length);
+int main(int argc, char *argv[]){
 
-int main(int argc, char *argv[])
-{
-
-    if (argc == 1)
-    {
-        handle_no_arguments();
+    if (argc == 1){
+       string_to_bytes_no_arg();
     }
-    else
-    {
+
+    else{
         switch (argv[1][1])
         {
-        case 'a':
-            printf("you entered -a \n");
+        case 'r':
+            printf("Your argument was r. \n");
+            bytes_to_string();
             break;
-        case 'l':
-            printf("you entered -l \n");
+        case 'x':
+            printf("Your argument was x. \n");
+            string_to_bytes();
             break;
 
         default:
-            handle_no_arguments();
+            printf("Zadal si zly argument. \n");
             break;
         }
     }
@@ -34,13 +37,13 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void string_to_bytes()
-{
+void string_to_bytes_no_arg(){
+
     char buffer[200];
     int i;
     int count = 0;
 
-    int index = readLine(buffer, sizeof(buffer));
+    int index = readLine(buffer, sizeof(buffer), false);
     printf("Vstupny retazec: %s \n", buffer);
     printf("index: %d \n", index);
 
@@ -65,22 +68,33 @@ void string_to_bytes()
     }
 }
 
-void handle_no_arguments()
-{
-    string_to_bytes();
-    // printf("Zadaj validny argument \n");
-    // printf("Pouzi -x pre prevod do Hexadecimalnej  \n");
-    // printf("Pouzi -S a -N [pocet] pre vypis postupnosti v binarnom vstupe \n");
+void bytes_to_string(){
+    char buffer[200];
+    int index = readLine(buffer, sizeof(buffer), true);
+    if (index % 2 == 1){
+        printf("The last character is %c \n", buffer[index-1]);
+    }
 }
 
-int readLine(char buffer[], int max_length) {
+int readLine(char buffer[], int max_length, bool ignore_whitespace) {
     char character;
     int index = 0;
 
-    // Read characters until newline or end of buffer
     while ((character = getchar()) != '\n' && index < max_length - 1) {
+        if (ignore_whitespace && (character == ' ' || character == '\t')) {
+            continue;
+        }
         buffer[index++] = character;
     }
-    buffer[index] = '\0'; // Null-terminate the string
+    buffer[index] = '\0'; 
     return index;
+}
+
+void string_to_bytes(){
+    char buffer[200];
+    int index = readLine(buffer, sizeof(buffer), false);
+    printf("Index is %i \n", index);
+    for (int i = 0; i < index; i++){
+        printf("%x", (int)buffer[i]);
+    }
 }
