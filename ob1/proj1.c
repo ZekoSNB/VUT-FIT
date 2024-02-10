@@ -44,11 +44,10 @@ void string_to_bytes_no_arg(){
     int count = 0;
 
     int index = readLine(buffer, sizeof(buffer), false);
-    printf("Vstupny retazec: %s \n", buffer);
-    printf("index: %d \n", index);
+    printf("Vstupny text: %s \n", buffer);
 
     while (index != 0){
-        printf("\n %08X  ", count);
+        // printf("\n %08X  ", count);
         if (index > 16){
             for (i = 0; i < 16; i++){
                 printf(" %x ", (int)buffer[count]);
@@ -93,7 +92,6 @@ int readLine(char buffer[], int max_length, bool ignore_whitespace) {
 void string_to_bytes(){
     char buffer[200];
     int index = readLine(buffer, sizeof(buffer), false);
-    printf("Index is %i \n", index);
     for (int i = 0; i < index; i++){
         printf("%x", (int)buffer[i]);
     }
