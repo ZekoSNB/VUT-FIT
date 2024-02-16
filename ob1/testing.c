@@ -1,20 +1,12 @@
 #include <stdio.h>
 
-void readLine(char buffer[], int max_length) {
-    char character;
-    int index = 0;
-
-    // Read characters until newline or end of buffer
-    while ((character = getchar()) != '\n' && index < max_length - 1) {
-        buffer[index++] = character;
-    }
-    buffer[index] = '\0'; // Null-terminate the string
-}
-
 int main() {
-    char buffer[1000]; // Assuming a maximum buffer size of 999 characters
-    printf("Enter a line of text: ");
-    readLine(buffer, sizeof(buffer));
-    printf("You entered: %s\n", buffer);
+    unsigned char hex_bytes[] = {0x20, 0x6a, 0x6c}; // Bytes represented in hexadecimal format
+    char ascii_string[3]; // Assuming 2 bytes -> 2 characters + '\0'
+
+    sprintf(ascii_string, "%c%c", hex_bytes[1], hex_bytes[2]); // Convert bytes to ASCII characters
+
+    printf("ASCII string: %s\n", ascii_string);
+
     return 0;
 }

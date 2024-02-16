@@ -5,6 +5,10 @@ void string_to_bytes_no_arg();
 
 void bytes_to_string();
 
+void invalid_arguments();
+
+void help();
+
 void string_to_bytes();
 
 int readLine(char buffer[], int max_length, bool ignore_whitespace);
@@ -18,23 +22,38 @@ int main(int argc, char *argv[]){
     else{
         switch (argv[1][1])
         {
+        case 'h':
+            help();
+            break;
         case 'r':
-            printf("Your argument was r. \n");
             bytes_to_string();
             break;
         case 'x':
-            printf("Your argument was x. \n");
             string_to_bytes();
             break;
 
         default:
-            printf("Zadal si zly argument. \n");
+            invalid_arguments();
             break;
         }
     }
     printf("\n");
 
     return 0;
+}
+
+void help(){
+    printf("argument -x for converting string to nbytes  \n");
+    printf("Argument -r for converting from bytes to string \n");
+    printf("Argument -S for printing i have no fucking idea what :D \n");
+    printf("Argument -s following the argument -n with a number \n");
+    printf("-s is for skipping the letters \n");
+    printf("-n is for how many characters should be printed \n");
+}
+
+void invalid_arguments() {
+    printf("You enter wrong argument. \n");
+    printf("Enter -h for help \n");
 }
 
 void string_to_bytes_no_arg(){
