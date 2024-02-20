@@ -7,6 +7,6 @@ int main() {
     sprintf(ascii_string, "%c%c", hex_bytes[1], hex_bytes[2]); // Convert bytes to ASCII characters
 
     printf("ASCII string: %s\n", ascii_string);
-
+ 
     return 0;
 }
