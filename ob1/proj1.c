@@ -5,6 +5,8 @@ void string_to_bytes_no_arg();
 
 void bytes_to_string();
 
+void print_distance(int count);
+
 void invalid_arguments();
 
 void help();
@@ -63,16 +65,20 @@ void string_to_bytes_no_arg(){
     int count = 0;
 
     int index = readLine(buffer, sizeof(buffer), false);
-    printf("Vstupny text: %s \n", buffer);
 
     while (index != 0){
-        // printf("\n %08X  ", count);
+        printf("\n %08X  ", count);
         if (index > 16){
             for (i = 0; i < 16; i++){
                 printf(" %x ", (int)buffer[count]);
                 index--;
                 count++;
             }
+            printf("|");
+            for (int j = 0; j < count; j++){
+                printf("%c", buffer[j]);
+            }
+            printf("|");
         }
         else
         {
@@ -81,6 +87,12 @@ void string_to_bytes_no_arg(){
                 printf(" %x ", (int)buffer[count]);
                 count++;
             }
+            print_distance(index);
+            printf("|");
+            for (int j = 0; j < count; j++){
+                printf("%c", buffer[j]);
+            }
+            printf("|");
             index = 0;
         }
     }
@@ -114,4 +126,14 @@ void string_to_bytes(){
     for (int i = 0; i < index; i++){
         printf("%x", (int)buffer[i]);
     }
+}
+
+void print_distance(int count){
+    // adds a printed distance to the reamining space in the last print_no__arg by calculating space
+    // between numbers there is a two space difference + two charactares having the same length 
+    int final_distance = (16 - count) * 4;
+    for (int i = 0; i < final_distance; i++){
+        printf(" ");
+    }
+    
 }
