@@ -10,7 +10,7 @@ CC=gcc
 CFLAGS=-std=c99 -Wall -Wextra -Werror
 
 # nazev souboru 
-PROJ=proj1
+PROJ=testing
 
 # pravidla 
 all: $(PROJ).c
