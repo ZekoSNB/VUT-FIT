@@ -37,6 +37,9 @@ int main(int argc, char *argv[]){
             break;
         case 'r':
             bytes_to_string();
+        
+        
+        
             break;
         case 'x':
             string_to_bytes();
