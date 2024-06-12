@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-void string_to_bytes_no_arg(int skip, int count);
+void string_to_bytes_no_arg();
 
 void bytes_to_string();
 
@@ -11,16 +11,16 @@ void invalid_arguments();
 
 void help();
 
-int charToInt(char *str);
-
 void string_to_bytes();
 
 int readLine(char buffer[], int max_length, bool ignore_whitespace);
 
+int hex_to_int(const char* hex);
+
 int main(int argc, char *argv[]){
 
     if (argc == 1){
-       string_to_bytes_no_arg(0, 0);
+       string_to_bytes_no_arg();
     }
 
     else{
@@ -29,21 +29,12 @@ int main(int argc, char *argv[]){
         case 'h':
             help();
             break;
-        case 's':
-            string_to_bytes_no_arg(charToInt(argv[2]), 0);
-            break;
-        case 'n':
-            string_to_bytes_no_arg(0, charToInt(argv[2]));
-            break;
         case 'r':
             bytes_to_string();
-        
-        
-        
             break;
         case 'x':
             string_to_bytes();
-            break;        
+            break;
 
         default:
             invalid_arguments();
@@ -59,7 +50,7 @@ void help(){
     printf("argument -x for converting string to nbytes  \n");
     printf("Argument -r for converting from bytes to string \n");
     printf("Argument -S for printing i have no fucking idea what :D \n");
-    printf("Argument -s to skip letters and you are following the argument -n with a number \n");
+    printf("Argument -s following the argument -n with a number \n");
     printf("-s is for skipping the letters \n");
     printf("-n is for how many characters should be printed \n");
 }
@@ -69,13 +60,11 @@ void invalid_arguments() {
     printf("Enter -h for help \n");
 }
 
-void string_to_bytes_no_arg(int skip, int number_of_letter){
+void string_to_bytes_no_arg(){
 
     char buffer[200];
     int i;
-    int count = skip;
-    printf("%d your count \n", count);
-    printf("Printing this much letter: %d \n", number_of_letter);
+    int count = 0;
 
     int index = readLine(buffer, sizeof(buffer), false);
 
@@ -114,9 +103,15 @@ void string_to_bytes_no_arg(int skip, int number_of_letter){
 void bytes_to_string(){
     char buffer[200];
     int index = readLine(buffer, sizeof(buffer), true);
-    if (index % 2 == 1){
-        printf("The last character is %c \n", buffer[index-1]);
+    int res[200];
+    for (int i = 0; i < sizeof(buffer); i++){
+        printf("%c", buffer[i]);
     }
+    for (int i = 0; i < sizeof(buffer); i += 2){
+        char* hex[3] = {buffer[i], buffer[i + 1], '\0'};
+        res[i / 2] = hex_to_int(hex);
+    }
+    printf("%d", res);
 }
 
 int readLine(char buffer[], int max_length, bool ignore_whitespace) {
@@ -151,30 +146,33 @@ void print_distance(int count){
     
 }
 
-int charToInt(char *str) {
+int hex_to_int(const char* hex) {
     int result = 0;
-    int i = 0;
-    int sign = 1;
+    int value = 0;
 
-    // Handle negative numbers
-    if (str[0] == '-') {
-        sign = -1;
-        i++;
+    // Iterate over each character in the hex string
+    while (*hex) {
+        char digit = *hex;
+
+        // Convert hexadecimal digit to its integer value
+        if (digit >= '0' && digit <= '9') {
+            value = digit - '0';
+        } else if (digit >= 'A' && digit <= 'F') {
+            value = digit - 'A' + 10;
+        } else if (digit >= 'a' && digit <= 'f') {
+            value = digit - 'a' + 10;
+        } else {
+            // Invalid hexadecimal character
+            printf("Error: Invalid hexadecimal digit '%c'\n", digit);
+            return -1;
+        }
+
+        // Shift the current result to the left by 4 bits (equivalent to multiplying by 16)
+        result = (result << 4) | value;
+
+        // Move to the next character
+        hex++;
     }
-
-    // Iterate through the characters until '\0' is encountered
-    while (str[i] != '\0') {
-        // Convert character to integer
-        int digit = str[i] - '0';
-        // Update the result by multiplying by 10 and adding the current digit
-        result = result * 10 + digit;
-        i++;
-    }
-
-    // Apply sign
-    result *= sign;
 
     return result;
 }
-//testovac.ksp.sk
-//gympd.sk/jaro 

@@ -1,37 +1,52 @@
-#include<stdio.h>
+#include <stdio.h>
+// #include <ctype.h>
 
-int charToInt(char *str);
-
-int main(int argc, char *argv[]){
-    printf("%s \n", argv[1]);
-    int result = charToInt(argv[1]);
-
-    printf("%d result \n", result*2);
-    return 0;
-}
-
-int charToInt(char *str) {
+int hex_to_int(const char* hex) {
     int result = 0;
-    int i = 0;
-    int sign = 1;
+    int value = 0;
 
-    // Handle negative numbers
-    if (str[0] == '-') {
-        sign = -1;
-        i++;
+    // Iterate over each character in the hex string
+    while (*hex) {
+        char digit = *hex;
+
+        // Convert hexadecimal digit to its integer value
+        if (digit >= '0' && digit <= '9') {
+            value = digit - '0';
+        } else if (digit >= 'A' && digit <= 'F') {
+            value = digit - 'A' + 10;
+        } else if (digit >= 'a' && digit <= 'f') {
+            value = digit - 'a' + 10;
+        } else {
+            // Invalid hexadecimal character
+            printf("Error: Invalid hexadecimal digit '%c'\n", digit);
+            return -1;
+        }
+
+        // Shift the current result to the left by 4 bits (equivalent to multiplying by 16)
+        result = (result << 4) | value;
+
+        // Move to the next character
+        hex++;
     }
-
-    // Iterate through the characters until '\0' is encountered
-    while (str[i] != '\0') {
-        // Convert character to integer
-        int digit = str[i] - '0';
-        // Update the result by multiplying by 10 and adding the current digit
-        result = result * 10 + digit;
-        i++;
-    }
-
-    // Apply sign
-    result *= sign;
 
     return result;
 }
+
+
+
+int main() {
+    char a;
+    scanf("%s", &a);
+    char* hex_string = &a;
+    char str[12]; 
+    int value = hex_to_int(hex_string);
+
+    printf("String value: %c\n", value);
+
+    if (value != -1) {
+        printf("The integer value of %s is %d\n", hex_string, value);
+    }
+
+    return 0;
+}
+
